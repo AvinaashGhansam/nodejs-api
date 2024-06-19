@@ -14,7 +14,7 @@ class CourseController {
   }
 
   async getCourseById(req: Request, res: Response) {
-    const courseId = parseInt(req.params.id);
+    const courseId = req.params.id;
     try {
       const course = await courseService.getCourseById(courseId);
       if (!course) {
@@ -36,7 +36,7 @@ class CourseController {
   }
 
   async updateCourse(req: Request, res: Response) {
-    const courseId = parseInt(req.params.id);
+    const courseId = req.params.id;
     try {
       const updatedCourse = await courseService.updateCourse(
         courseId,
@@ -52,7 +52,7 @@ class CourseController {
   }
 
   async deleteCourse(req: Request, res: Response) {
-    const courseId = parseInt(req.params.id);
+    const courseId = req.params.id;
     try {
       const deletedCourse = await courseService.deleteCourse(courseId);
       if (!deletedCourse) {

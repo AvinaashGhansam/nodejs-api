@@ -3,8 +3,12 @@ import courseRoutes from "./routes/courseRoutes";
 import loggingMiddleware from "./middleware/loggingMiddleware";
 import homePage from "./routes/homePage";
 import path from "node:path";
+import connectDB from "./database";
 
 const app = express();
+
+// Connect to MongoDB
+connectDB();
 
 app.use(express.json());
 app.use(loggingMiddleware);
