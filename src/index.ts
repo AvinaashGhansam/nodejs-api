@@ -1,14 +1,14 @@
 import express from "express";
 import courseRoutes from "./routes/courseRoutes";
-import loggingMiddleware from "./middleware/loggingMiddleware";
 import homePage from "./routes/homePage";
 import path from "node:path";
 import connectDB from "./database";
+import loggingMiddleware from "./middleware/loggingMiddleware";
 
 const app = express();
 
 // Connect to MongoDB
-connectDB();
+void connectDB();
 
 app.use(express.json());
 app.use(loggingMiddleware);

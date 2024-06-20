@@ -10,9 +10,17 @@ export interface ICourse extends Document {
 }
 
 const CourseSchema: Schema = new Schema({
-  name: { type: String, required: true },
+  name: { type: String, required: true, minlength: 1, maxLength: 255 },
   author: { type: String, required: true },
-  tags: [String],
+  tags: {
+    type: Array<string>,
+    validate: {
+      validator: function (val: string[]): Promise<boolean> {
+        return Promise.resolve(val && val.length > 0);
+      },
+      message: "A course should have at least one tag",
+    },
+  },
   date: { type: Date, default: Date.now, required: true },
 });
 

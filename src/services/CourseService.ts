@@ -10,8 +10,8 @@ export class CourseService {
     return Course.findById(id);
   }
 
-  async createCourse(newCourseData: any): Promise<ICourse> {
-    const { error } = this.validateCourse(newCourseData);
+  async createCourse(newCourseData: ICourse): Promise<ICourse | null> {
+    const { error } = courseValidator.validate(newCourseData);
     if (error) {
       throw new Error(error.details[0].message);
     }
@@ -19,12 +19,20 @@ export class CourseService {
     const newCourse = new Course({
       ...newCourseData,
     });
-    return await newCourse.save();
+
+    try {
+      return await newCourse.save();
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        console.log(err.message);
+      }
+      throw err;
+    }
   }
 
   async updateCourse(
     id: string,
-    updatedCourseData: any,
+    updatedCourseData: ICourse,
   ): Promise<ICourse | null> {
     const { error } = this.validateCourse(updatedCourseData);
     if (error) {
@@ -38,7 +46,7 @@ export class CourseService {
     return Course.findByIdAndDelete(id);
   }
 
-  private validateCourse(courseData: any) {
+  private validateCourse(courseData: ICourse) {
     return courseValidator.validate(courseData);
   }
 }

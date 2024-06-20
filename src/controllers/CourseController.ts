@@ -4,7 +4,7 @@ import { CourseService } from "../services/CourseService";
 const courseService = new CourseService();
 
 class CourseController {
-  async getAllCourses(req: Request, res: Response) {
+  async getAllCourses(_req: Request, res: Response) {
     try {
       const courses = await courseService.getAllCourses();
       res.send(courses);
